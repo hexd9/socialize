@@ -28,6 +28,7 @@ To use the API and test its functionality, you can use tools like Insomnia.
 ## Credits
 
 Tutor: Rene Trevino
+
 Classmate: Ruben Ruiz
 
 ## License

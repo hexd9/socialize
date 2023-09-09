@@ -58,7 +58,7 @@ const userController = {
       await Thought.deleteMany({
         _id: { $in: userData.thoughts },
       });
-      res.json({ message: "thoughts were deleted" });
+      res.json({ message: "user deleted" });
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
@@ -68,7 +68,7 @@ const userController = {
     try {
       const userData = await User.findOneAndUpdate(
         { _id: req.params.userId },
-        { $addToSet: { Friends: req.params.friendId } },
+        { $addToSet: { friends: req.params.friendId } },
         { new: true }
       );
       if (!userData) {
@@ -84,7 +84,7 @@ const userController = {
     try {
       const userData = await User.findOneAndUpdate(
         { _id: req.params.userId },
-        { $pull: { Friends: req.params.friendId } },
+        { $pull: { friends: req.params.friendId } },
         { new: true }
       );
       if (!userData) {

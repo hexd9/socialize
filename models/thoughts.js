@@ -4,7 +4,7 @@ const dateFormat = require("../utils/dateFormat");
 
 const thoughtSchema = new Schema(
   {
-    thoughtText: {
+    thought: {
       type: String,
       required: "Enter thought",
       minlength: 1,
@@ -14,7 +14,7 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
-      get: timestamp => dateFormat(timestamp),
+      get: (timestamp) => dateFormat(timestamp),
     },
 
     userName: {
@@ -27,15 +27,15 @@ const thoughtSchema = new Schema(
   {
     toJSON: {
       getters: true,
-    }, 
-    id: false
+    },
+    id: false,
   }
 );
 
-thoughtSchema.virtual('reactioncount').get(() => {
-    return this.reactions.length
+thoughtSchema.virtual("reactioncount").get(function () {
+  return this.reactions.length;
 });
 
-const Thought = model('Thought', thoughtSchema);
+const Thought = model("Thought", thoughtSchema);
 
-module.exports = Thought
+module.exports = Thought;
