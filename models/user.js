@@ -14,13 +14,13 @@ const userSchema = new Schema(
       unique: true,
       match: [/.+@.+\..+/, "invalid email"],
     },
-    Thoughts: [
+    thoughts: [
       {
         type: Schema.Types.ObjectId,
         ref: "Thought",
       },
     ],
-    Friends: [
+    friends: [
       {
         type: Schema.Types.ObjectId,
         ref: "User",
@@ -35,11 +35,10 @@ const userSchema = new Schema(
   }
 );
 
-
-userSchema.virtual('friendcount').get(() => {
-    return this.Friends.length
+userSchema.virtual("friendcount").get(function () {
+  return this.friends.length;
 });
 
-const User = model('User', userSchema);
+const User = model("User", userSchema);
 
-module.exports = User
+module.exports = User;

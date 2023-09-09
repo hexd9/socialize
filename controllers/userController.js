@@ -56,7 +56,6 @@ const userController = {
         return res.status(404).json({ message: "no user data" });
       }
       await Thought.deleteMany({
-        // come back to this
         _id: { $in: userData.thoughts },
       });
       res.json({ message: "thoughts were deleted" });
@@ -67,28 +66,36 @@ const userController = {
   },
   async addFriend(req, res) {
     try {
-        const userData = await User.findOneAndUpdate({_id: req.params.userId},{$addToSet: req.params.friendId}, {new: true})
-        if(!userData){
-            return res.status(404).json({message: 'friend not added'})
-        }
-        res.json(userData);
+      const userData = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        { $addToSet: { Friends: req.params.friendId } },
+        { new: true }
+      );
+      if (!userData) {
+        return res.status(404).json({ message: "friend not added" });
+      }
+      res.json(userData);
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
     }
   },
-  async removeFriend (req, res) {
+  async removeFriend(req, res) {
     try {
-        const userData = await User.findOneAndUpdate({_id: req.params.userId},{$pull: {Friends: req.params.friendId}}, {new: true})
-        if(!userData){
-            return res.status(404).json({message: 'friend not deleted'})
-        }
-        res.json(userData);
+      const userData = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        { $pull: { Friends: req.params.friendId } },
+        { new: true }
+      );
+      if (!userData) {
+        return res.status(404).json({ message: "friend not deleted" });
+      }
+      res.json(userData);
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
     }
-  }
+  },
 };
 
 module.exports = userController;
